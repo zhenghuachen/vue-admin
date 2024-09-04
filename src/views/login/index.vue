@@ -7,7 +7,7 @@
       <!-- username -->
       <el-form-item>
         <span class="svg-container">
-          <svg-icon icon="https://res.lgdsunday.club/user.svg"></svg-icon>
+          <svg-icon icon="user"></svg-icon>
         </span>
         <el-input placeholder="username" name="username" type="text"></el-input>
       </el-form-item>
@@ -16,14 +16,14 @@
       <el-form-item>
         <span class="svg-container">
           <el-icon>
-            <avatar />
+            <svg-icon icon="password"></svg-icon>
           </el-icon>
         </span>
         <el-input placeholder="password" name="password"></el-input>
         <span class="show-pwd">
-          <el-icon>
-            <avatar />
-          </el-icon>
+          <span class="svg-container">
+            <svg-icon icon="eye"></svg-icon>
+          </span>
         </span>
       </el-form-item>
 
@@ -36,8 +36,7 @@
 <script setup>
 import {} from 'vue'
 // vue3 setup语法中导入的组件可以直接使用，不需要再通过Component注册了
-import { Avatar } from '@element-plus/icons'
-import SvgIcon from '@/components/SvgIcon/index.vue'
+
 </script>
 
 <style lang="scss" scoped>
