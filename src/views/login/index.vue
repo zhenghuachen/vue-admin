@@ -1,25 +1,25 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form">
+    <el-form class="login-form" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
       <!-- username -->
-      <el-form-item>
+      <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon="user"></svg-icon>
         </span>
-        <el-input placeholder="username" name="username" type="text"></el-input>
+        <el-input placeholder="username" name="username" type="text" v-model="loginForm.username"></el-input>
       </el-form-item>
 
       <!-- password -->
-      <el-form-item>
+      <el-form-item prop="password">
         <span class="svg-container">
           <el-icon>
             <svg-icon icon="password"></svg-icon>
           </el-icon>
         </span>
-        <el-input placeholder="password" name="password"></el-input>
+        <el-input placeholder="password" name="password" v-model="loginForm.password"></el-input>
         <span class="show-pwd">
           <span class="svg-container">
             <svg-icon icon="eye"></svg-icon>
@@ -34,8 +34,31 @@
 </template>
 
 <script setup>
-import {} from 'vue'
+import { ref } from 'vue'
 // vue3 setup语法中导入的组件可以直接使用，不需要再通过Component注册了
+import { validatePassword } from './rules'
+// 数据源
+const loginForm = ref({
+  username: 'super-admin',
+  password: '123456'
+})
+// 验证规则
+const loginRules = ref({
+  username: [
+    {
+      required: true,
+      message: '用户名为必填项',
+      trigger: 'blur'
+    }
+  ],
+  password: [
+    {
+      requireed: true,
+      trigger: 'blur',
+      validator: validatePassword()
+    }
+  ]
+})
 
 </script>
 
