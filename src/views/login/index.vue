@@ -19,10 +19,10 @@
             <svg-icon icon="password"></svg-icon>
           </el-icon>
         </span>
-        <el-input placeholder="password" name="password" v-model="loginForm.password"></el-input>
+        <el-input placeholder="password" name="password"  :type="passwordType" v-model="loginForm.password"></el-input>
         <span class="show-pwd">
-          <span class="svg-container">
-            <svg-icon icon="eye"></svg-icon>
+          <span class="svg-container"  @click="onChangePwdType">
+            <svg-icon :icon="passwordType === 'password' ? 'eye' : 'eye-open'"></svg-icon>
           </span>
         </span>
       </el-form-item>
@@ -59,6 +59,19 @@ const loginRules = ref({
     }
   ]
 })
+
+// 密码框显示隐藏
+const passwordType = ref('password')
+// template中绑定的方法，直接声明即可
+const onChangePwdType = () => {
+  // 当passwordType为password时，点击后变为text，反之亦然
+  // 使用ref声明的数据，在script中使用时，需要加value来获取具体的值，但是在template中不需要加value
+  if (passwordType.value === 'password') {
+    passwordType.value = 'text'
+  } else {
+    passwordType.value = 'password'
+  }
+}
 
 </script>
 
@@ -128,7 +141,6 @@ $cursor: #fff;
   .show-pwd {
     position: absolute;
     right: 10px;
-    top: 7px;
     font-size: 16px;
     color: $dark_gray;
     cursor: pointer;
