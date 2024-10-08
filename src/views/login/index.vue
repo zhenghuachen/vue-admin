@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form class="login-form" :model="loginForm" :rules="loginRules">
+    <el-form class="login-form" ref="loginFormRef" :model="loginForm" :rules="loginRules">
       <div class="title-container">
         <h3 class="title">用户登录</h3>
       </div>
@@ -28,7 +28,7 @@
       </el-form-item>
 
       <!-- 登录按钮-->
-      <el-button type="primary" style="width: 100%; margin-bottom: 30px">登录</el-button>
+      <el-button type="primary" style="width: 100%; margin-bottom: 30px" :loading="loading" @click="handleLogin">登录</el-button>
     </el-form>
   </div>
 </template>
@@ -37,6 +37,8 @@
 import { ref } from 'vue'
 // vue3 setup语法中导入的组件可以直接使用，不需要再通过Component注册了
 import { validatePassword } from './rules'
+import { useStore } from 'vuex' // 按需导入useStore方法
+
 // 数据源
 const loginForm = ref({
   username: 'super-admin',
@@ -71,6 +73,29 @@ const onChangePwdType = () => {
   } else {
     passwordType.value = 'password'
   }
+}
+
+// 登陆动作处理
+const loading = ref(false) // 使用ref声明的数据默认值false
+const loginFormRef = ref(null) // 使用ref声明的数据默认值null,用于获取组件实例
+const store = useStore()
+const handleLogin = () => {
+  // 1.进行表单校验
+  loginFormRef.value.validate((valid) => { // vue3的compsition API中没有this.refs
+    if (!valid) return
+    // 2.触发登陆动作
+    loading.value = true
+    store
+      .dispatch('user/login', loginForm.value)
+      .then(() => {
+        loading.value = false
+        // 3. TODO:进行登陆后处理
+      })
+      .catch((err) => {
+        console.log(err)
+        loading.value = false
+      })
+  })
 }
 
 </script>
