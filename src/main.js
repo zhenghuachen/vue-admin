@@ -7,6 +7,8 @@ import installElementPlus from './plugins/element'
 import '@/styles/index.scss'
 // 导入svgIcon
 import installIcons from '@/icons'
+// 导入mock
+import '@/mock/index.js'
 
 const app = createApp(App)
 installElementPlus(app)

@@ -87,7 +87,8 @@ const handleLogin = () => {
     loading.value = true
     store
       .dispatch('user/login', loginForm.value)
-      .then(() => {
+      .then((res) => {
+        console.log(res)
         loading.value = false
         // 3. TODO:进行登陆后处理
       })

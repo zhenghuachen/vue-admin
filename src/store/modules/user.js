@@ -18,7 +18,7 @@ export default {
         login({
           username, password: md5(password)
         }).then(data => {
-          resolve()
+          resolve(data)
         }).catch(err => {
           reject(err)
         })
